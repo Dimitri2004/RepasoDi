@@ -1,52 +1,35 @@
 import sqlite3
 
 
-def crear_bases_datos():
-    # --- BD EJERCICIO 3: COLEXIO ---
-    conn_edu = sqlite3.connect('colexio.db')
-    cursor_edu = conn_edu.cursor()
-    cursor_edu.execute('DROP TABLE IF EXISTS alumnos')
-    cursor_edu.execute('''CREATE TABLE alumnos
-                          (
-                              id    INTEGER PRIMARY KEY,
-                              nome  TEXT,
-                              nota1 REAL,
-                              nota2 REAL,
-                              nota3 REAL
-                          )''')
-    alumnos = [
-        (1, 'Ana Silva', 8.5, 7.0, 9.0),
-        (2, 'Brais Porto', 4.0, 3.5, 5.0),
-        (3, 'Carla Meis', 2.0, 4.0, 3.0),
-        (4, 'David Rivas', 9.5, 10.0, 9.0)
-    ]
-    cursor_edu.executemany('INSERT INTO alumnos VALUES (?,?,?,?,?)', alumnos)
-    conn_edu.commit()
-    conn_edu.close()
+def generar_db():
+    conn = sqlite3.connect('tech_elite.db')
+    cursor = conn.cursor()
+    cursor.execute('DROP TABLE IF EXISTS reparaciones')
+    # ID, Modelo, Cliente, Fecha_Compra, Version_SO, Num_Serie, Garantia
+    cursor.execute('''CREATE TABLE reparaciones
+                      (
+                          id       INTEGER PRIMARY KEY,
+                          modelo   TEXT,
+                          cliente  TEXT,
+                          f_compra TEXT,
+                          so       TEXT,
+                          serie    TEXT,
+                          garantia INTEGER
+                      )''')
 
-    # --- BD EJERCICIO 4: FLOTA ---
-    conn_car = sqlite3.connect('flota.db')
-    cursor_car = conn_car.cursor()
-    cursor_car.execute('DROP TABLE IF EXISTS vehiculos')
-    cursor_car.execute('''CREATE TABLE vehiculos
-                          (
-                              id         INTEGER PRIMARY KEY,
-                              modelo     TEXT,
-                              dispoñible INTEGER
-                          )''')  # 1 = Si, 0 = No
-    coches = [
-        (1, 'Toyota Corolla', 1),
-        (2, 'Seat Ibiza', 0),
-        (3, 'Ford Focus', 1),
-        (4, 'Tesla Model 3', 0),
-        (5, 'Renault Clio', 1)
+    datos = [
+        (1, 'iPhone 15 Pro', 'Lucía Mella', '2024-02-10', 'iOS 17', 'SN-9981', 1),
+        (2, 'Laptop MSI Katana', 'Jorge Vales', '2023-05-20', 'Win 11', 'SN-4421', 0),
+        (3, 'iPad Air', 'Marta Porto', '2023-11-12', 'iPadOS 17', 'SN-1102', 1),
+        (4, 'Steam Deck', 'Brais Gil', '2024-01-05', 'SteamOS', 'SN-8873', 1),
+        (5, 'Workstation Dell', 'Empresa X', '2022-08-30', 'Ubuntu 22', 'SN-0051', 0)
     ]
-    cursor_car.executemany('INSERT INTO vehiculos VALUES (?,?,?)', coches)
-    conn_car.commit()
-    conn_car.close()
 
-    print("✅ Bases de datos 'colexio.db' e 'flota.db' creadas con éxito.")
+    cursor.executemany('INSERT INTO reparaciones VALUES (?,?,?,?,?,?,?)', datos)
+    conn.commit()
+    conn.close()
+    print("✅ Base de datos 'tech_elite.db' generada correctamente.")
 
 
 if __name__ == "__main__":
-    crear_bases_datos()
+    generar_db()

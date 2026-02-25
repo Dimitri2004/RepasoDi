@@ -49,7 +49,7 @@ class ExamenFlota(QMainWindow):
 
     def generar_pdf(self):
         try:
-            doc = SimpleDocTemplate("Informe_flota.pdf", pagesize=A4)
+            doc = SimpleDocTemplate("PDFs/Informe_flota.pdf", pagesize=A4)
             guion = []
             estilos = getSampleStyleSheet()
 
@@ -104,7 +104,7 @@ class ExamenFlota(QMainWindow):
 
     def obtener_datos_db(self):
         try:
-            conexion = sqlite3.connect('flota.db')
+            conexion = sqlite3.connect('DBs/flota.db')
             cursor = conexion.cursor()
             cursor.execute("SELECT id, modelo, dispoñible FROM vehiculos")
             datos = cursor.fetchall()

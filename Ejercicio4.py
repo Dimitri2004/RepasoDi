@@ -22,7 +22,7 @@ class TechFixElite(QMainWindow):
         self.cmb.addItems([r[1] for r in self.registros])
         self.cmb.currentIndexChanged.connect(self.actualizar_datos)
 
-        maia.addWidget(QLabel("Selleccionar Dispositivo :"),0,0)
+        maia.addWidget(QLabel("Seleccionar Dispositivo :"),0,0)
         maia.addWidget(self.cmb,0,1)
 
         self.txtCliente=QLineEdit()
@@ -77,7 +77,7 @@ class TechFixElite(QMainWindow):
 
     def conectar_db(self):
         try:
-            conexion = sqlite3.connect('tech_elite.db')
+            conexion = sqlite3.connect('DBs/tech_elite.db')
             cursor = conexion.cursor()
             cursor.execute("SELECT id, modelo, cliente,f_compra,so, serie,garantia FROM reparaciones")
             datos = cursor.fetchall()
@@ -117,7 +117,7 @@ class TechFixElite(QMainWindow):
         return total, coste_prioridad, coste_extras
 
     def generar_pdf(self):
-        doc = SimpleDocTemplate("Factura_Elite.pdf", pagesize=A4)
+        doc = SimpleDocTemplate("PDFs/Factura_Elite.pdf", pagesize=A4)
         guion = []
         estilos = getSampleStyleSheet()
 
@@ -158,10 +158,10 @@ class TechFixElite(QMainWindow):
         if (c_prioridad + c_extras) > 0:
             d_canvas = Drawing(400, 200)
             pie = Pie()
-            pie.x = 150
-            pie.y = 50
-            pie.width = 120
-            pie.height = 120
+            pie.x = 180
+            pie.y = 80
+            pie.width = 90
+            pie.height = 90
             pie.data = [c_prioridad, c_extras]
             pie.labels = ['Prioridade', 'Extras']
 

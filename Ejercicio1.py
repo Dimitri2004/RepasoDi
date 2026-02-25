@@ -78,7 +78,7 @@ class ExameGamer(QMainWindow):
             self.txtArea.append(f"Actualizado en memoria: {self.videoxogos[idx][1]}")
 
     def generar_pdf(self):
-        doc = SimpleDocTemplate("Informe_Ventas.pdf", pagesize=A4)
+        doc = SimpleDocTemplate("PDFs/Informe_Ventas.pdf", pagesize=A4)
         guion = []
         estilos = getSampleStyleSheet()
 
@@ -117,7 +117,7 @@ class ExameGamer(QMainWindow):
 
     def obter_datos_db(self):
         try:
-            conexion = sqlite3.connect('tienda.db')
+            conexion = sqlite3.connect('DBs/tienda.db')
             cursor = conexion.cursor()
             # OJO: Aquí el orden es 0:id, 1:nombre, 2:stock, 3:precio
             cursor.execute("SELECT id, nombre, stock, precio FROM productos")

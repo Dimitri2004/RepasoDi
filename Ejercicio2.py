@@ -65,7 +65,7 @@ class ExameNotas(QMainWindow):
 
     def obter_datos_db(self):
         try:
-            conexion = sqlite3.connect('colexio.db')
+            conexion = sqlite3.connect('DBs/colexio.db')
             cursor = conexion.cursor()
             cursor.execute("SELECT id, nome, nota1, nota2, nota3 FROM alumnos")
             datos = cursor.fetchall()
@@ -76,7 +76,7 @@ class ExameNotas(QMainWindow):
             return []
 
     def generar_datos(self):
-        doc = SimpleDocTemplate("Informe_Notas.pdf", pagesize=A4)
+        doc = SimpleDocTemplate("PDFs/Informe_Notas.pdf", pagesize=A4)
         guion = []
         estilos = getSampleStyleSheet()
 
